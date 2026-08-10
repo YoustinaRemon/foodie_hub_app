@@ -30,7 +30,6 @@ class StackPhotos extends StatelessWidget {
               bottom: 20,
               left: 20,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(24),
                 child: Assets.images.stack2.image(
                   width: 170,
                   height: 228,
@@ -43,20 +42,20 @@ class StackPhotos extends StatelessWidget {
               top: 170,
               left: 150,
               child: Container(
-                width: 64,
+                width: 70,
                 height: 64,
                 decoration: BoxDecoration(
-                  color: AppColors.circleBehindHerat,
+                  color: AppColors.circleBehindHerat.withValues(alpha: .9),
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withValues(alpha: 0.1),
                       blurRadius: 10,
-                      offset: const Offset(0, 4),
+                      offset: Offset(0, 4),
                     ),
                   ],
                 ),
-                child: const Center(
+                child: Center(
                   child: Icon(
                     Icons.favorite,
                     color: AppColors.heartColor,
