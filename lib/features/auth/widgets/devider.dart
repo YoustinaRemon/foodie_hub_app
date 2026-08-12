@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
 
-class Devider extends StatelessWidget {
-  const Devider({super.key});
+class CustomDevider extends StatelessWidget {
+  const CustomDevider({super.key});
 
   @override
   Widget build(BuildContext context) {

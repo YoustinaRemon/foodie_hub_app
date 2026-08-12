@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "661669744477",
+    "project_id": "foodiehub-47232",
+    "storage_bucket": "foodiehub-47232.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661669744477:android:0d8b02ffc963fcf083a2b4",
+        "android_client_info": {
+          "package_name": "com.example.foodie_hup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "661669744477-35avka6si54dt1fg5rogst77s191op3j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foodie_hup",
+            "certificate_hash": "cf04818cd35738b1b102b555a23e22ab9c0818d3"
+          }
+        },
+        {
+          "client_id": "661669744477-cgvlbseugaaip92km4a3va55fk2179gt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW_o6po6Ox_DSH1yaYSrCSKaIiEt04HaE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "661669744477-cgvlbseugaaip92km4a3va55fk2179gt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

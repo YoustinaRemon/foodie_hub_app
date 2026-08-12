@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
-import 'package:foodie_hup/features/landing/ui/landing_screen.dart';
+import 'package:foodie_hup/features/landing_page/ui/landing_screen.dart';
 import 'package:foodie_hup/features/onboarding/ui/widgets/small_button.dart';
 import 'package:foodie_hup/features/onboarding/ui/widgets/stack_photos.dart';
 
@@ -39,10 +40,16 @@ class OnboardingScreen extends StatelessWidget {
               Align(
                 alignment: AlignmentGeometry.bottomRight,
                 child: SmallButton(
-                  onTap: () => Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => LandingScreen()),
-                  ),
+                  onTap: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    await prefs.setBool('onboardingCompleted', true);
+                    if (context.mounted) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => LandingScreen()),
+                      );
+                    }
+                  },
                 ),
               ),
             ],

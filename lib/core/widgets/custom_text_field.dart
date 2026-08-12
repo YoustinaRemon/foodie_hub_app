@@ -6,12 +6,19 @@ class CustomTextField extends StatefulWidget {
   final bool isPassword;
   final TextInputType? keyboardType;
   final Widget? prefixIcon;
+  final Color? fillColor;
+  final TextEditingController? controller;
+  final String? errorText;
+
   const CustomTextField({
     super.key,
     required this.text,
     this.keyboardType,
     this.isPassword = false,
     this.prefixIcon,
+    this.fillColor,
+    this.controller,
+    this.errorText,
   });
 
   @override
@@ -23,6 +30,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: widget.controller,
       obscureText: widget.isPassword && isobscure,
       keyboardType: widget.keyboardType,
       onTapOutside: (event) {
@@ -30,6 +38,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       },
 
       decoration: InputDecoration(
+        errorText: widget.errorText,
         suffixIcon: widget.isPassword
             ? InkWell(
                 onTap: () {
@@ -43,7 +52,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               )
             : null,
         prefixIcon: widget.prefixIcon,
-        fillColor: AppColors.mainColor,
+        fillColor: widget.fillColor ?? AppColors.mainColor,
         filled: true,
         hint: Text(
           widget.text,

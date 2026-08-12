@@ -11,6 +11,34 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsIconsGen {
+  const $AssetsIconsGen();
+
+  /// File path: assets/icons/clock_icon.svg
+  String get clockIcon => 'assets/icons/clock_icon.svg';
+
+  /// File path: assets/icons/google_logo.svg
+  String get googleLogo => 'assets/icons/google_logo.svg';
+
+  /// File path: assets/icons/heart_icon.svg
+  String get heartIcon => 'assets/icons/heart_icon.svg';
+
+  /// File path: assets/icons/resturant_logo.svg
+  String get resturantLogo => 'assets/icons/resturant_logo.svg';
+
+  /// File path: assets/icons/star_icon.svg
+  String get starIcon => 'assets/icons/star_icon.svg';
+
+  /// List of all assets
+  List<String> get values => [
+    clockIcon,
+    googleLogo,
+    heartIcon,
+    resturantLogo,
+    starIcon,
+  ];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -20,6 +48,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/landing_page_background.png
   AssetGenImage get landingPageBackground =>
       const AssetGenImage('assets/images/landing_page_background.png');
+
+  /// File path: assets/images/login_cover.png
+  AssetGenImage get loginCover =>
+      const AssetGenImage('assets/images/login_cover.png');
 
   /// File path: assets/images/splash.png
   AssetGenImage get splash => const AssetGenImage('assets/images/splash.png');
@@ -38,6 +70,7 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [
     logo,
     landingPageBackground,
+    loginCover,
     splash,
     splashAndroid,
     stack1,
@@ -46,6 +79,7 @@ class $AssetsImagesGen {
 }
 
 abstract final class Assets {
+  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 

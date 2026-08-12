@@ -7,4 +7,5 @@ class AppColors {
   static const Color circleBehindHerat = Color(0xff78A886);
   static const Color contentColor = Color(0xff4A4E4A);
   static const Color borderColor = Color(0xffC4C8BC);
+  static Color shadowColor = Color(0xff4A4E4A).withValues(alpha: .1);
 }

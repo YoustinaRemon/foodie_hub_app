@@ -1,17 +1,88 @@
 import 'package:flutter/material.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
 import 'package:foodie_hup/core/widgets/app_button.dart';
+import 'package:foodie_hup/core/widgets/back_arrow.dart';
 import 'package:foodie_hup/core/widgets/custom_text_field.dart';
-import 'package:foodie_hup/core/widgets/devider.dart';
+import 'package:foodie_hup/features/auth/widgets/devider.dart';
+import 'package:foodie_hup/features/auth/widgets/google_button.dart';
 import 'package:foodie_hup/core/widgets/label_of_text_field.dart';
-import 'package:foodie_hup/features/auth/ui/widgets/circle_background.dart';
-import 'package:foodie_hup/features/auth/ui/widgets/dashed_circle.dart';
+import 'package:foodie_hup/features/auth/widgets/circle_background.dart';
+import 'package:foodie_hup/features/auth/widgets/dashed_circle.dart';
+import 'package:foodie_hup/core/widgets/loading_widget.dart';
 
-class RegisterScreen extends StatelessWidget {
+import 'package:provider/provider.dart';
+import 'package:foodie_hup/features/auth/providers/auth_provider.dart';
+
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
   @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  String? _nameError;
+  String? _emailError;
+  String? _passwordError;
+  String? _confirmPasswordError;
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  void _register() async {
+    setState(() {
+      _nameError = _nameController.text.isEmpty ? 'Name is required' : null;
+      _emailError = _emailController.text.isEmpty ? 'Email is required' : null;
+      _passwordError = _passwordController.text.isEmpty ? 'Password is required' : null;
+      _confirmPasswordError = _confirmPasswordController.text != _passwordController.text 
+          ? 'Passwords do not match' 
+          : null;
+    });
+
+    if (_nameError == null && _emailError == null && _passwordError == null && _confirmPasswordError == null) {
+      final authProvider = context.read<AuthProvider>();
+      final success = await authProvider.register(
+        _emailController.text.trim(),
+        _passwordController.text.trim(),
+        _nameController.text.trim(),
+      );
+      if (success && mounted) {
+        Navigator.of(context).popUntil((route) => route.isFirst);
+      } else if (!success && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(authProvider.errorMessage ?? 'Registration failed')),
+        );
+      }
+    }
+  }
+
+  void _loginWithGoogle() async {
+    final authProvider = context.read<AuthProvider>();
+    final success = await authProvider.loginWithGoogle();
+    if (success && mounted) {
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    } else if (!success && mounted && authProvider.errorMessage != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(authProvider.errorMessage!)),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final isLoading = context.watch<AuthProvider>().isLoading;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -25,6 +96,10 @@ class RegisterScreen extends StatelessWidget {
                 color: Colors.white,
                 child: Stack(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: BackArrow(),
+                    ),
                     CircleBackground(),
                     Padding(
                       padding: const EdgeInsets.all(24),
@@ -62,6 +137,8 @@ class RegisterScreen extends StatelessWidget {
                             LabelOfTextField(text: "Full Name"),
                             SizedBox(height: 5),
                             CustomTextField(
+                              controller: _nameController,
+                              errorText: _nameError,
                               text: "Enter your full name",
                               prefixIcon: Icon(Icons.person_2_outlined),
                             ),
@@ -69,6 +146,8 @@ class RegisterScreen extends StatelessWidget {
                             LabelOfTextField(text: "Email"),
                             SizedBox(height: 5),
                             CustomTextField(
+                              controller: _emailController,
+                              errorText: _emailError,
                               text: "Enter your Email",
                               keyboardType: TextInputType.emailAddress,
                               prefixIcon: Icon(Icons.email_outlined),
@@ -77,6 +156,8 @@ class RegisterScreen extends StatelessWidget {
                             LabelOfTextField(text: "Password"),
                             SizedBox(height: 5),
                             CustomTextField(
+                              controller: _passwordController,
+                              errorText: _passwordError,
                               text: "Create your Password",
                               isPassword: true,
                               prefixIcon: Icon(Icons.lock_outlined),
@@ -85,6 +166,8 @@ class RegisterScreen extends StatelessWidget {
                             LabelOfTextField(text: "Confirm Password"),
                             SizedBox(height: 5),
                             CustomTextField(
+                              controller: _confirmPasswordController,
+                              errorText: _confirmPasswordError,
                               text: "Confirm your Password",
                               isPassword: true,
                               prefixIcon: Icon(
@@ -92,20 +175,20 @@ class RegisterScreen extends StatelessWidget {
                               ),
                             ),
                             SizedBox(height: 60),
-                            AppButton(text: "Create Your Account"),
+                            isLoading
+                                ? const Center(child: LoadingWidget())
+                                : AppButton(
+                                    text: "Create Your Account",
+                                    onTap: _register,
+                                  ),
                             SizedBox(height: 30),
-                            Devider(),
+                            CustomDevider(),
                             SizedBox(height: 30),
-                            AppButton(
-                              border: BoxBorder.all(
-                                color: AppColors.borderColor,
-                              ),
-                              text: "Continue With Google",
-                              color: AppColors.mainColor,
-                              style: Theme.of(
-                                context,
-                              ).textTheme.titleMedium!.copyWith(),
-                            ),
+                            isLoading
+                                ? SizedBox.shrink()
+                                : GoogleButton(
+                                    onTap: _loginWithGoogle,
+                                  ),
                           ],
                         ),
                       ),
