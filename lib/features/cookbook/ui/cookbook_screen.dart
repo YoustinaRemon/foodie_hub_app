@@ -9,6 +9,7 @@ import 'package:foodie_hup/features/cookbook/widgets/my_recipes_list.dart';
 import 'package:foodie_hup/core/widgets/loading_widget.dart';
 import 'package:foodie_hup/core/widgets/error_state_widget.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CookbookScreen extends StatelessWidget {
   const CookbookScreen({super.key});
@@ -21,15 +22,20 @@ class CookbookScreen extends StatelessWidget {
         body: SafeArea(
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 16.0),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0.w),
                 child: CookbookHeader(),
               ),
-              const TabBar(
+              TabBar(
                 labelColor: AppColors.secondMainColor,
                 unselectedLabelColor: AppColors.contentColor,
                 indicatorColor: AppColors.mainColor,
-                tabs: [
+                labelStyle: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+                unselectedLabelStyle: TextStyle(fontSize: 15.sp),
+                tabs: const [
                   Tab(text: "Favorites"),
                   Tab(text: "My Recipes"),
                 ],
@@ -41,7 +47,7 @@ class CookbookScreen extends StatelessWidget {
                     Consumer<FavoriteProvider>(
                       builder: (context, provider, child) {
                         if (provider.isLoading) {
-                          return const Center(child: LoadingWidget());
+                          return Center(child: LoadingWidget());
                         } else if (provider.errorMessage != null) {
                           return Center(
                             child: ErrorStateWidget(
@@ -55,8 +61,13 @@ class CookbookScreen extends StatelessWidget {
                           return CustomScrollView(
                             slivers: [
                               SliverPadding(
-                                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-                                sliver: CookbookRecipeGrid(meals: provider.favorites),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 20.0.w,
+                                  vertical: 12.0.h,
+                                ),
+                                sliver: CookbookRecipeGrid(
+                                  meals: provider.favorites,
+                                ),
                               ),
                             ],
                           );
@@ -72,15 +83,17 @@ class CookbookScreen extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const CreateRecipeScreen()),
-          );
-        },
-        backgroundColor: AppColors.secondMainColor,
-        child: const Icon(Icons.add, color: AppColors.mainColor),
-      ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CreateRecipeScreen(),
+              ),
+            );
+          },
+          backgroundColor: AppColors.secondMainColor,
+          child: Icon(Icons.add, color: AppColors.mainColor),
+        ),
       ),
     );
   }

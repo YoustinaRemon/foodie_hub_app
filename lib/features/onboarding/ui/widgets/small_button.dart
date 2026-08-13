@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class SmallButton extends StatelessWidget {
   final void Function()? onTap;
@@ -10,11 +12,11 @@ class SmallButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: 48,
-        width: 116,
+        height: 48.h,
+        width: 116.w,
         decoration: BoxDecoration(
           color: AppColors.secondMainColor,
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(24.r),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -26,8 +28,8 @@ class SmallButton extends StatelessWidget {
                 context,
               ).textTheme.titleMedium!.copyWith(color: AppColors.mainColor),
             ),
-            SizedBox(width: 6),
-            Icon(Icons.arrow_forward, color: AppColors.mainColor, size: 18),
+            SizedBox(width: 6.w),
+            Icon(Icons.arrow_forward, color: AppColors.mainColor, size: 18.sp),
           ],
         ),
       ),

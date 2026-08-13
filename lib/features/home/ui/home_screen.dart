@@ -10,6 +10,8 @@ import 'package:foodie_hup/features/home/widgets/home_category_chips.dart';
 import 'package:foodie_hup/features/home/widgets/section_header.dart';
 import 'package:foodie_hup/features/home/widgets/recipe_of_day_card.dart';
 import 'package:foodie_hup/features/home/widgets/popular_recipes_section.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -19,7 +21,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+          padding: EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 12.0.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -31,22 +33,22 @@ class HomeScreen extends StatelessWidget {
                   context.read<RecipeProvider>().searchMeals(query);
                 },
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: 20.h),
 
               const HomeCategoryChips(),
 
               Consumer<RecipeProvider>(
                 builder: (context, provider, child) {
                   if (provider.isRecipeOfDayLoading) {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 24.0),
+                    return Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20.0.h),
                       child: Center(child: LoadingWidget()),
                     );
                   }
 
                   if (provider.recipeOfDayError != null) {
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 24.0),
+                      padding: EdgeInsets.symmetric(vertical: 20.0.h),
                       child: Center(
                         child: ErrorStateWidget(
                           errorMessage: provider.recipeOfDayError!,
@@ -57,8 +59,8 @@ class HomeScreen extends StatelessWidget {
                   }
 
                   if (provider.recipeOfTheDay == null) {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 24.0),
+                    return Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20.0.h),
                       child: Center(
                         child: EmptyStateWidget(
                           message: 'No recipe of the day available.',
@@ -83,15 +85,15 @@ class HomeScreen extends StatelessWidget {
               Consumer<RecipeProvider>(
                 builder: (context, provider, child) {
                   if (provider.isLoading) {
-                    return const Padding(
-                      padding: EdgeInsets.only(top: 50.0),
+                    return Padding(
+                      padding: EdgeInsets.only(top: 32.0.h),
                       child: Center(child: LoadingWidget()),
                     );
                   }
 
                   if (provider.errorMessage != null) {
                     return Padding(
-                      padding: const EdgeInsets.only(top: 50.0),
+                      padding: EdgeInsets.only(top: 32.0.h),
                       child: Center(
                         child: ErrorStateWidget(
                           errorMessage: provider.errorMessage!,
@@ -102,8 +104,8 @@ class HomeScreen extends StatelessWidget {
                   }
 
                   if (provider.meals.isEmpty) {
-                    return const Padding(
-                      padding: EdgeInsets.only(top: 50.0),
+                    return Padding(
+                      padding: EdgeInsets.only(top: 32.0.h),
                       child: Center(
                         child: EmptyStateWidget(
                           message: 'No recipes found.',

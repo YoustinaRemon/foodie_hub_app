@@ -12,6 +12,7 @@ import 'package:foodie_hup/core/widgets/loading_widget.dart';
 
 import 'package:provider/provider.dart';
 import 'package:foodie_hup/features/auth/providers/auth_provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -87,9 +88,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(16.w),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(20.r),
               child: Card(
                 elevation: 2,
                 shadowColor: AppColors.mainColor,
@@ -97,12 +98,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Stack(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0.w),
                       child: BackArrow(),
                     ),
                     CircleBackground(),
                     Padding(
-                      padding: const EdgeInsets.all(24),
+                      padding: EdgeInsets.all(20.w),
                       child: Center(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -111,20 +112,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               "Create Account",
                               style: Theme.of(context).textTheme.headlineLarge
                                   ?.copyWith(
-                                    fontSize: 28,
+                                    fontSize: 24.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
                             ),
-                            SizedBox(height: 8),
+                            SizedBox(height: 8.h),
                             Text(
                               "Join FoodieHub to discover your next\nfavorite recipe.",
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.titleMedium!
                                   .copyWith(color: AppColors.contentColor),
                             ),
-                            SizedBox(height: 35),
+                            SizedBox(height: 24.h),
                             DashedCircle(),
-                            SizedBox(height: 8),
+                            SizedBox(height: 8.h),
                             Text(
                               "Upload photo",
                               style: Theme.of(context).textTheme.titleMedium!
@@ -133,18 +134,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     fontWeight: FontWeight.normal,
                                   ),
                             ),
-                            SizedBox(height: 30),
+                            SizedBox(height: 20.h),
                             LabelOfTextField(text: "Full Name"),
-                            SizedBox(height: 5),
+                            SizedBox(height: 4.h),
                             CustomTextField(
                               controller: _nameController,
                               errorText: _nameError,
                               text: "Enter your full name",
                               prefixIcon: Icon(Icons.person_2_outlined),
                             ),
-                            SizedBox(height: 24),
+                            SizedBox(height: 16.h),
                             LabelOfTextField(text: "Email"),
-                            SizedBox(height: 5),
+                            SizedBox(height: 4.h),
                             CustomTextField(
                               controller: _emailController,
                               errorText: _emailError,
@@ -152,9 +153,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               keyboardType: TextInputType.emailAddress,
                               prefixIcon: Icon(Icons.email_outlined),
                             ),
-                            SizedBox(height: 24),
+                            SizedBox(height: 16.h),
                             LabelOfTextField(text: "Password"),
-                            SizedBox(height: 5),
+                            SizedBox(height: 4.h),
                             CustomTextField(
                               controller: _passwordController,
                               errorText: _passwordError,
@@ -162,9 +163,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               isPassword: true,
                               prefixIcon: Icon(Icons.lock_outlined),
                             ),
-                            SizedBox(height: 24),
+                            SizedBox(height: 16.h),
                             LabelOfTextField(text: "Confirm Password"),
-                            SizedBox(height: 5),
+                            SizedBox(height: 4.h),
                             CustomTextField(
                               controller: _confirmPasswordController,
                               errorText: _confirmPasswordError,
@@ -174,16 +175,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 Icons.replay_circle_filled_sharp,
                               ),
                             ),
-                            SizedBox(height: 60),
+                            SizedBox(height: 40.h),
                             isLoading
-                                ? const Center(child: LoadingWidget())
+                                ? Center(child: LoadingWidget())
                                 : AppButton(
                                     text: "Create Your Account",
                                     onTap: _register,
                                   ),
-                            SizedBox(height: 30),
+                            SizedBox(height: 20.h),
                             CustomDevider(),
-                            SizedBox(height: 30),
+                            SizedBox(height: 20.h),
                             isLoading
                                 ? SizedBox.shrink()
                                 : GoogleButton(

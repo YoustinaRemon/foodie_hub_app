@@ -4,6 +4,8 @@ import 'package:foodie_hup/features/auth/providers/auth_provider.dart';
 import 'package:foodie_hup/features/cookbook/providers/favorite_provider.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
 import 'package:foodie_hup/core/widgets/app_button.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -12,19 +14,19 @@ class ProfileScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Logout'),
-        content: const Text('Are you sure you want to logout?'),
+        title: Text('Logout'),
+        content: Text('Are you sure you want to logout?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Cancel', style: TextStyle(color: AppColors.contentColor)),
+            child: Text('Cancel', style: TextStyle(color: AppColors.contentColor)),
           ),
           TextButton(
             onPressed: () {
               Navigator.of(ctx).pop();
               context.read<AuthProvider>().logout();
             },
-            child: const Text('Logout', style: TextStyle(color: Colors.red)),
+            child: Text('Logout', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),
@@ -46,27 +48,27 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.mainColor,
       appBar: AppBar(
-        title: const Text("Profile", style: TextStyle(color: AppColors.mainColor)),
+        title: Text("Profile", style: TextStyle(color: AppColors.mainColor)),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
+          padding: EdgeInsets.all(20.0.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Avatar
               CircleAvatar(
                 backgroundColor: AppColors.borderColor.withValues(alpha: 0.3),
-                radius: 50,
+                radius: 40.r,
                 backgroundImage: (photoURL != null && photoURL.isNotEmpty) ? NetworkImage(photoURL) : null,
                 child: (photoURL != null && photoURL.isNotEmpty)
                     ? null
-                    : const Icon(Icons.person, color: AppColors.contentColor, size: 50),
+                    : Icon(Icons.person, color: AppColors.contentColor, size: 40.sp),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 12.h),
               
               // Name
               Text(
@@ -74,9 +76,10 @@ class ProfileScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       color: AppColors.secondMainColor,
                       fontWeight: FontWeight.bold,
+                      fontSize: 24.sp,
                     ),
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4.h),
               
               // Email
               Text(
@@ -85,27 +88,27 @@ class ProfileScreen extends StatelessWidget {
                       color: AppColors.contentColor,
                     ),
               ),
-              const SizedBox(height: 32),
+              SizedBox(height: 24.h),
 
               // Statistics Section
               Card(
                 color: Colors.white,
                 elevation: 2,
                 shadowColor: AppColors.shadowColor,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+                  padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Column(
                         children: [
-                          Icon(Icons.favorite, color: AppColors.secondMainColor, size: 32),
-                          const SizedBox(height: 8),
+                          Icon(Icons.favorite, color: AppColors.secondMainColor, size: 28.sp),
+                          SizedBox(height: 8.h),
                           if (favoriteProvider.isLoading)
-                            const SizedBox(
-                              width: 20, 
-                              height: 20, 
+                            SizedBox(
+                              width: 20.w, 
+                              height: 20.h, 
                               child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.mainColor)
                             )
                           else
@@ -116,7 +119,7 @@ class ProfileScreen extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
-                          const SizedBox(height: 4),
+                          SizedBox(height: 4.h),
                           Text(
                             "Favorite Recipes",
                             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -129,7 +132,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 32),
+              SizedBox(height: 32.h),
 
               // Actions
               AppButton(

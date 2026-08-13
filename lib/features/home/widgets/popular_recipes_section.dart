@@ -10,7 +10,7 @@ class PopularRecipesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (meals.isEmpty) {
-      return const SizedBox.shrink();
+      return SizedBox.shrink();
     }
 
     return ListView.builder(

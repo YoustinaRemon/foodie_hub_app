@@ -10,6 +10,8 @@ import 'package:foodie_hup/features/cookbook/models/custom_recipe_model.dart';
 import 'package:foodie_hup/features/cookbook/widgets/ingredient_list_editor.dart';
 import 'package:foodie_hup/features/cookbook/widgets/instruction_list_editor.dart';
 import 'package:foodie_hup/features/cookbook/widgets/recipe_image_picker.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class CreateRecipeScreen extends StatefulWidget {
   final CustomRecipeModel? recipe;
@@ -34,11 +36,11 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
             color: AppColors.contentColor.withValues(alpha: .5),
           ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12.r),
         borderSide: const BorderSide(color: AppColors.borderColor),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12.r),
         borderSide: const BorderSide(color: AppColors.borderColor),
       ),
     );
@@ -122,7 +124,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: const IconThemeData(color: AppColors.contentColor),
+        iconTheme: IconThemeData(color: AppColors.contentColor),
       ),
       body: SafeArea(
         child: Consumer<CustomRecipeProvider>(
@@ -130,23 +132,24 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
             return Stack(
               children: [
                 SingleChildScrollView(
-                  padding: const EdgeInsets.all(24.0),
+                  padding: EdgeInsets.all(20.0.w),
                   child: FormBuilder(
                     key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const RecipeImagePicker(),
-                        const SizedBox(height: 24),
+                        SizedBox(height: 20.h),
                         
                         Text(
                           "Basic Information",
                           style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                 color: AppColors.secondMainColor,
                                 fontWeight: FontWeight.bold,
+                                fontSize: 20.sp,
                               ),
                         ),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 12.h),
                         
                         FormBuilderTextField(
                           name: 'title',
@@ -157,7 +160,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
                             FormBuilderValidators.minLength(3),
                           ]),
                         ),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 12.h),
                         
                         FormBuilderTextField(
                           name: 'description',
@@ -166,14 +169,14 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
                           decoration: _customInputDecoration('Description'),
                           validator: FormBuilderValidators.required(),
                         ),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 12.h),
                         
                         FormBuilderDropdown<String>(
                           name: 'category',
                           initialValue: widget.recipe?.category,
                           decoration: _customInputDecoration('Category'),
                           validator: FormBuilderValidators.required(),
-                          items: const [
+                          items: [
                             DropdownMenuItem(value: 'Breakfast', child: Text('Breakfast')),
                             DropdownMenuItem(value: 'Lunch', child: Text('Lunch')),
                             DropdownMenuItem(value: 'Dinner', child: Text('Dinner')),
@@ -181,7 +184,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
                             DropdownMenuItem(value: 'Snack', child: Text('Snack')),
                           ],
                         ),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 12.h),
                         
                         Row(
                           children: [
@@ -198,7 +201,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
                                 ]),
                               ),
                             ),
-                            const SizedBox(width: 16),
+                            SizedBox(width: 12.w),
                             Expanded(
                               child: FormBuilderTextField(
                                 name: 'servings',
@@ -214,13 +217,13 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 32),
+                        SizedBox(height: 24.h),
                         
                         IngredientListEditor(key: _ingredientListKey, initialIngredients: widget.recipe?.ingredients),
-                        const SizedBox(height: 32),
+                        SizedBox(height: 24.h),
                         
                         InstructionListEditor(key: _instructionListKey, initialInstructions: widget.recipe?.instructions),
-                        const SizedBox(height: 48),
+                        SizedBox(height: 32.h),
                         
                         Center(
                           child: AppButton(
@@ -228,7 +231,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
                             onTap: provider.isLoading ? null : _submitForm,
                           ),
                         ),
-                        const SizedBox(height: 24),
+                        SizedBox(height: 20.h),
                       ],
                     ),
                   ),
@@ -237,7 +240,7 @@ class _CreateRecipeScreenState extends State<CreateRecipeScreen> {
                 if (provider.isLoading)
                   Container(
                     color: Colors.black.withValues(alpha: 0.3),
-                    child: const Center(
+                    child: Center(
                       child: LoadingWidget(),
                     ),
                   ),

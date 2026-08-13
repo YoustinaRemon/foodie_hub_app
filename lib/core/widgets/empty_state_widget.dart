@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class EmptyStateWidget extends StatelessWidget {
   final String message;
@@ -17,10 +19,10 @@ class EmptyStateWidget extends StatelessWidget {
         children: [
           Icon(
             Icons.search_off_rounded,
-            size: 64,
+            size: 54.sp,
             color: AppColors.borderColor,
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 12.h),
           Text(
             message,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(

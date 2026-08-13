@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodie_hup/models/meal_model.dart';
 import 'package:foodie_hup/features/recipes/widgets/recipe_card.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CookbookRecipeGrid extends StatelessWidget {
   final List<MealModel> meals;
@@ -10,11 +11,11 @@ class CookbookRecipeGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverGrid(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisSpacing: 16.0,
-        crossAxisSpacing: 16.0,
-        childAspectRatio: 0.75, // Matches standard RecipeCard proportions
+        mainAxisSpacing: 12.0.h,
+        crossAxisSpacing: 12.0.w,
+        childAspectRatio: 0.78, // Matches standard RecipeCard proportions
       ),
       delegate: SliverChildBuilderDelegate(
         (context, index) {

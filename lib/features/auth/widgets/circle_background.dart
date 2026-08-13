@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class CircleBackground extends StatelessWidget {
   const CircleBackground({super.key});
@@ -11,8 +13,8 @@ class CircleBackground extends StatelessWidget {
       right: -50,
       child: IgnorePointer(
         child: Container(
-          width: 150,
-          height: 150,
+          width: 150.w,
+          height: 150.h,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             boxShadow: [

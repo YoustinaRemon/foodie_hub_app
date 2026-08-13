@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
 import 'package:provider/provider.dart';
 import 'package:foodie_hup/features/auth/providers/auth_provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
@@ -10,19 +11,19 @@ class HomeHeader extends StatelessWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Logout'),
-        content: const Text('Are you sure you want to logout?'),
+        title: Text('Logout'),
+        content: Text('Are you sure you want to logout?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Cancel'),
+            child: Text('Cancel'),
           ),
           TextButton(
             onPressed: () {
               Navigator.of(ctx).pop();
               context.read<AuthProvider>().logout();
             },
-            child: const Text('Logout', style: TextStyle(color: Colors.red)),
+            child: Text('Logout', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),
@@ -39,62 +40,58 @@ class HomeHeader extends StatelessWidget {
     final photoURL = currentUser?.photoURL;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 24.0),
+      padding: EdgeInsets.only(bottom: 16.0.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CircleAvatar(
             backgroundColor: AppColors.borderColor.withValues(alpha: 0.3),
-            radius: 22,
+            radius: 18.r,
             backgroundImage: (photoURL != null && photoURL.isNotEmpty)
                 ? NetworkImage(photoURL)
                 : null,
             child: (photoURL != null && photoURL.isNotEmpty)
                 ? null
-                : const Icon(Icons.person, color: AppColors.contentColor),
+                : Icon(Icons.person, color: AppColors.contentColor),
           ),
-          const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Good morning, $displayString.",
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium?.copyWith(color: AppColors.contentColor),
-              ),
-              Text(
-                "FoodieHub",
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  color: AppColors.secondMainColor,
-                  fontWeight: FontWeight.w900,
-                  fontFamily:
-                      'Serif', // Placeholder for the elegant serif font in reference
+          SizedBox(width: 10.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Hello, $displayString",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: AppColors.contentColor,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const Spacer(),
-          Container(
-            decoration: BoxDecoration(
-              color: AppColors.shadowColor,
-              shape: BoxShape.circle,
-            ),
-            child: IconButton(
-              icon: const Icon(
-                Icons.notifications_outlined,
-                color: AppColors.secondMainColor,
-              ),
-              onPressed: () {
-                // Future notification logic
-              },
+                Text(
+                  "FoodieHub",
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    color: AppColors.secondMainColor,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ],
             ),
           ),
           IconButton(
-            icon: const Icon(
+            icon: Icon(
+              Icons.notifications_outlined,
+              size: 22.sp,
+              color: AppColors.secondMainColor,
+            ),
+            onPressed: () {
+              // Future notification logic
+            },
+          ),
+          IconButton(
+            icon: Icon(
               Icons.logout,
               color: AppColors.contentColor,
-              size: 20,
+              size: 20.sp,
             ),
             onPressed: () => _showLogoutDialog(context),
           ),

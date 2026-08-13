@@ -10,6 +10,7 @@ import 'package:foodie_hup/core/widgets/loading_widget.dart';
 
 import 'package:provider/provider.dart';
 import 'package:foodie_hup/features/auth/providers/auth_provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -73,9 +74,9 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(16.w),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(20.r),
               child: Card(
                 elevation: 2,
                 shadowColor: AppColors.mainColor,
@@ -84,18 +85,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 190,
+                      height: 170.h,
                       child: Stack(
                         children: [
                           Positioned(
-                            top: 55,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
+                            top: 45.h,
+                            left: 0.w,
+                            right: 0.w,
+                            bottom: 0.h,
                             child: ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(24),
-                                topRight: Radius.circular(24),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20.r),
+                                topRight: Radius.circular(20.r),
                               ),
                               child: Image.asset(
                                 Assets.images.loginCover.path,
@@ -105,12 +106,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
 
                           Positioned(
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            height: 90,
+                            left: 0.w,
+                            right: 0.w,
+                            bottom: 0.h,
+                            height: 80.h,
                             child: Container(
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
@@ -125,28 +126,28 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
 
-                          Positioned(top: 8, left: 8, child: BackArrow()),
+                          Positioned(top: 8.h, left: 8.w, child: BackArrow()),
                           Positioned(
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
+                            left: 0.w,
+                            right: 0.w,
+                            bottom: 0.h,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  width: 44,
-                                  height: 44,
-                                  decoration: const BoxDecoration(
+                                  width: 40.w,
+                                  height: 40.h,
+                                  decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: AppColors.secondMainColor,
                                   ),
                                   child: Icon(
                                     Icons.restaurant,
                                     color: AppColors.mainColor,
-                                    size: 28,
+                                    size: 24.sp,
                                   ),
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width: 8.w),
                                 Text(
                                   'FoodieHub',
                                   style: Theme.of(
@@ -159,9 +160,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     Padding(
-                      padding: EdgeInsets.all(24),
+                      padding: EdgeInsets.all(20.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -169,18 +170,18 @@ class _LoginScreenState extends State<LoginScreen> {
                             'Welcome Back!',
                             style: Theme.of(context).textTheme.titleMedium!
                                 .copyWith(
-                                  fontSize: 24,
+                                  fontSize: 22.sp,
                                   fontWeight: FontWeight.normal,
                                 ),
                           ),
-                          SizedBox(height: 5),
+                          SizedBox(height: 5.h),
                           Text(
                             'Sign in to discover your next favorite recipe.',
                             style: Theme.of(context).textTheme.titleMedium!
                                 .copyWith(color: AppColors.contentColor),
                           ),
 
-                          const SizedBox(height: 30),
+                          SizedBox(height: 24.h),
                           CustomTextField(
                             controller: _emailController,
                             errorText: _emailError,
@@ -189,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             prefixIcon: Icon(Icons.email_outlined),
                           ),
 
-                          SizedBox(height: 20),
+                          SizedBox(height: 16.h),
 
                           CustomTextField(
                             controller: _passwordController,
@@ -199,16 +200,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             prefixIcon: Icon(Icons.lock_outlined),
                           ),
 
-                          SizedBox(height: 40),
+                          SizedBox(height: 32.h),
                           isLoading
-                              ? const Center(child: LoadingWidget())
+                              ? Center(child: LoadingWidget())
                               : AppButton(
                                   text: 'Login',
                                   onTap: _login,
                                 ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 16.h),
                           CustomDevider(),
-                          SizedBox(height: 20),
+                          SizedBox(height: 16.h),
                           isLoading
                               ? SizedBox.shrink()
                               : GoogleButton(

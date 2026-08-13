@@ -7,6 +7,8 @@ import 'package:foodie_hup/features/recipes/ui/recipe_details_screen.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
 import 'package:foodie_hup/core/widgets/loading_widget.dart';
 import 'package:foodie_hup/core/widgets/error_state_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class MyRecipesList extends StatelessWidget {
   const MyRecipesList({super.key});
@@ -15,12 +17,12 @@ class MyRecipesList extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text("Delete Recipe?"),
-        content: const Text("This recipe will be permanently removed from your recipes."),
+        title: Text("Delete Recipe?"),
+        content: Text("This recipe will be permanently removed from your recipes."),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text("Cancel", style: TextStyle(color: AppColors.contentColor)),
+            child: Text("Cancel", style: TextStyle(color: AppColors.contentColor)),
           ),
           TextButton(
             onPressed: () {
@@ -33,7 +35,7 @@ class MyRecipesList extends StatelessWidget {
                 }
               });
             },
-            child: const Text("Delete", style: TextStyle(color: Colors.red)),
+            child: Text("Delete", style: TextStyle(color: Colors.red)),
           ),
         ],
       ),
@@ -45,7 +47,7 @@ class MyRecipesList extends StatelessWidget {
     return Consumer<CustomRecipeProvider>(
       builder: (context, provider, child) {
         if (provider.isLoading) {
-          return const Center(child: LoadingWidget());
+          return Center(child: LoadingWidget());
         }
 
         if (provider.errorMessage != null) {
@@ -60,16 +62,16 @@ class MyRecipesList extends StatelessWidget {
         if (provider.myRecipes.isEmpty) {
           return Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              padding: EdgeInsets.symmetric(horizontal: 32.0.w),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.restaurant_menu_outlined,
-                    size: 80,
+                    size: 80.sp,
                     color: AppColors.borderColor.withValues(alpha: 0.5),
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24.h),
                   Text(
                     "No Custom Recipes Yet",
                     textAlign: TextAlign.center,
@@ -78,7 +80,7 @@ class MyRecipesList extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12.h),
                   Text(
                     "Create your first recipe and it will appear here.",
                     textAlign: TextAlign.center,
@@ -93,35 +95,35 @@ class MyRecipesList extends StatelessWidget {
         }
 
         return ListView.separated(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(16.w),
           itemCount: provider.myRecipes.length,
-          separatorBuilder: (context, index) => const SizedBox(height: 12),
+          separatorBuilder: (context, index) => SizedBox(height: 12.h),
           itemBuilder: (context, index) {
             final recipe = provider.myRecipes[index];
             return Card(
               color: Colors.white,
               elevation: 2,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
               child: ListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
                 leading: Container(
-                  width: 50,
-                  height: 50,
+                  width: 50.w,
+                  height: 50.h,
                   decoration: BoxDecoration(
                     color: AppColors.borderColor.withValues(alpha: 0.3),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
-                  child: const Icon(Icons.fastfood, color: AppColors.contentColor),
+                  child: Icon(Icons.fastfood, color: AppColors.contentColor),
                 ),
                 title: Text(
                   recipe.title,
-                  style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.secondMainColor),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.secondMainColor),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 subtitle: Text(
                   "${recipe.category} • ${recipe.preparationTime} mins",
-                  style: const TextStyle(color: AppColors.contentColor),
+                  style: TextStyle(color: AppColors.contentColor),
                 ),
                 onTap: () {
                   Navigator.push(
@@ -135,7 +137,7 @@ class MyRecipesList extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.edit, color: AppColors.contentColor),
+                      icon: Icon(Icons.edit, color: AppColors.contentColor),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -146,7 +148,7 @@ class MyRecipesList extends StatelessWidget {
                       },
                     ),
                     IconButton(
-                      icon: const Icon(Icons.delete_outline, color: Colors.red),
+                      icon: Icon(Icons.delete_outline, color: Colors.red),
                       onPressed: () => _confirmDelete(context, recipe),
                     ),
                   ],

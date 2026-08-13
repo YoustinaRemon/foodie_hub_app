@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class EmptyCookbook extends StatelessWidget {
   const EmptyCookbook({super.key});
@@ -7,17 +9,17 @@ class EmptyCookbook extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32.0),
+      padding: EdgeInsets.symmetric(horizontal: 32.0.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Icon(
             Icons.menu_book_outlined,
-            size: 80,
+            size: 80.sp,
             color: AppColors.borderColor.withValues(alpha: 0.5),
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
           Text(
             "Your Cookbook is Empty",
             textAlign: TextAlign.center,
@@ -26,7 +28,7 @@ class EmptyCookbook extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
           Text(
             "Save recipes you love and find them here later.",
             textAlign: TextAlign.center,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class CustomDevider extends StatelessWidget {
   const CustomDevider({super.key});
@@ -15,10 +17,10 @@ class CustomDevider extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
           child: Text(
             "OR",
-            style: TextStyle(color: AppColors.contentColor, fontSize: 14),
+            style: TextStyle(color: AppColors.contentColor, fontSize: 14.sp),
           ),
         ),
         Expanded(

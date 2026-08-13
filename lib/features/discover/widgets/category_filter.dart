@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
 import 'package:foodie_hup/features/discover/providers/discover_provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class CategoryFilter extends StatelessWidget {
   const CategoryFilter({super.key});
@@ -10,10 +12,10 @@ class CategoryFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<DiscoverProvider>(
       builder: (context, provider, child) {
-        if (provider.categories.isEmpty) return const SizedBox.shrink();
+        if (provider.categories.isEmpty) return SizedBox.shrink();
 
         return SizedBox(
-          height: 40,
+          height: 32.h,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: provider.categories.length,
@@ -27,15 +29,16 @@ class CategoryFilter extends StatelessWidget {
                   category != 'All';
 
               return Padding(
-                padding: const EdgeInsets.only(right: 8.0),
+                padding: EdgeInsets.only(right: 8.0.w),
                 child: ChoiceChip(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(20.r),
                     side: BorderSide.none,
                   ),
                   label: Text(
                     category,
                     style: TextStyle(
+                      fontSize: 13.sp,
                       color: isSelected
                           ? AppColors.mainColor
                           : isDisabled

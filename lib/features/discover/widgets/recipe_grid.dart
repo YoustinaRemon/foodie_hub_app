@@ -5,6 +5,8 @@ import 'package:foodie_hup/features/recipes/widgets/recipe_card.dart';
 import 'package:foodie_hup/core/widgets/empty_state_widget.dart';
 import 'package:foodie_hup/core/widgets/error_state_widget.dart';
 import 'package:foodie_hup/core/widgets/loading_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class RecipeGrid extends StatelessWidget {
   const RecipeGrid({super.key});
@@ -14,7 +16,7 @@ class RecipeGrid extends StatelessWidget {
     return Consumer<DiscoverProvider>(
       builder: (context, provider, child) {
         if (provider.isLoading) {
-          return const Center(child: LoadingWidget());
+          return Center(child: LoadingWidget());
         }
 
         if (provider.errorMessage != null) {
@@ -27,7 +29,7 @@ class RecipeGrid extends StatelessWidget {
         }
 
         if (provider.meals.isEmpty) {
-          return const Center(
+          return Center(
             child: EmptyStateWidget(
               message: 'No recipes found. Try adjusting your filters or search!',
             ),
@@ -35,12 +37,12 @@ class RecipeGrid extends StatelessWidget {
         }
 
         return GridView.builder(
-          padding: const EdgeInsets.only(top: 8.0, bottom: 24.0),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          padding: EdgeInsets.only(top: 8.0.h, bottom: 24.0.h),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            childAspectRatio: 0.75,
+            crossAxisSpacing: 12.w,
+            mainAxisSpacing: 12.h,
+            childAspectRatio: 0.78,
           ),
           itemCount: provider.meals.length,
           itemBuilder: (context, index) {

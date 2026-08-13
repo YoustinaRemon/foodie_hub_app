@@ -5,6 +5,8 @@ import 'package:foodie_hup/features/recipes/widgets/recipe_card.dart';
 import 'package:foodie_hup/core/widgets/empty_state_widget.dart';
 import 'package:foodie_hup/core/widgets/error_state_widget.dart';
 import 'package:foodie_hup/core/widgets/loading_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class RecipeSection extends StatelessWidget {
   const RecipeSection({super.key});
@@ -14,7 +16,7 @@ class RecipeSection extends StatelessWidget {
     return Consumer<RecipeProvider>(
       builder: (context, provider, child) {
         if (provider.isLoading) {
-          return const Expanded(child: LoadingWidget());
+          return Expanded(child: LoadingWidget());
         }
 
         if (provider.errorMessage != null) {
@@ -27,7 +29,7 @@ class RecipeSection extends StatelessWidget {
         }
 
         if (provider.meals.isEmpty) {
-          return const Expanded(
+          return Expanded(
             child: EmptyStateWidget(
               message: 'No meals found. Try searching for something else!',
             ),
@@ -36,16 +38,16 @@ class RecipeSection extends StatelessWidget {
 
         // Horizontal List View for recipes
         return SizedBox(
-          height: 250, // Constrained height for horizontal scrolling
+          height: 250.h, // Constrained height for horizontal scrolling
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: provider.meals.length,
             itemBuilder: (context, index) {
               final meal = provider.meals[index];
               return Padding(
-                padding: const EdgeInsets.only(right: 16.0),
+                padding: EdgeInsets.only(right: 16.0.w),
                 child: SizedBox(
-                  width: 180, // Fixed width to ensure cards look good horizontally
+                  width: 180.w, // Fixed width to ensure cards look good horizontally
                   child: RecipeCard(meal: meal),
                 ),
               );

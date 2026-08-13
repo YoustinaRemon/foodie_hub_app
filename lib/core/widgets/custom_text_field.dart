@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class CustomTextField extends StatefulWidget {
   final String text;
@@ -55,19 +57,22 @@ class _CustomTextFieldState extends State<CustomTextField> {
         fillColor: widget.fillColor ?? AppColors.mainColor,
         filled: true,
         hint: Text(
+
+
           widget.text,
           style: Theme.of(context).textTheme.titleMedium!.copyWith(
             color: AppColors.contentColor.withValues(alpha: .5),
           ),
         ),
 
+        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12.r),
           borderSide: BorderSide(color: AppColors.borderColor),
         ),
 
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12.r),
           borderSide: BorderSide(color: AppColors.borderColor),
         ),
       ),

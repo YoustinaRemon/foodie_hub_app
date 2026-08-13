@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
 import 'package:foodie_hup/features/recipes/providers/recipe_provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeCategoryChips extends StatelessWidget {
   const HomeCategoryChips({super.key});
@@ -10,12 +11,12 @@ class HomeCategoryChips extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<RecipeProvider>(
       builder: (context, provider, child) {
-        if (provider.categories.isEmpty) return const SizedBox.shrink();
+        if (provider.categories.isEmpty) return SizedBox.shrink();
 
         return Padding(
-          padding: const EdgeInsets.only(bottom: 24.0),
+          padding: EdgeInsets.only(bottom: 16.0.h),
           child: SizedBox(
-            height: 40,
+            height: 32.h,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: provider.categories.length,
@@ -24,11 +25,12 @@ class HomeCategoryChips extends StatelessWidget {
                 final isSelected = provider.selectedCategory == category;
 
                 return Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
+                  padding: EdgeInsets.only(right: 8.0.w),
                   child: ChoiceChip(
                     label: Text(
                       category,
                       style: TextStyle(
+                        fontSize: 13.sp,
                         color: isSelected
                             ? AppColors.mainColor
                             : AppColors.contentColor,
@@ -42,7 +44,7 @@ class HomeCategoryChips extends StatelessWidget {
                     backgroundColor: AppColors.shadowColor,
                     showCheckmark: false,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20.r),
                       side: BorderSide.none,
                     ),
                     onSelected: (selected) {

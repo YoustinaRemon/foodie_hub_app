@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class InstructionListEditor extends StatefulWidget {
   final List<String>? initialInstructions;
@@ -70,26 +72,26 @@ class InstructionListEditorState extends State<InstructionListEditor> {
             ),
             TextButton.icon(
               onPressed: addInstruction,
-              icon: const Icon(Icons.add, color: AppColors.mainColor),
-              label: const Text(
+              icon: Icon(Icons.add, color: AppColors.mainColor),
+              label: Text(
                 "Add",
                 style: TextStyle(color: AppColors.mainColor),
               ),
               style: TextButton.styleFrom(
                 backgroundColor: AppColors.secondMainColor,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12.r),
                 ),
               ),
             ),
           ],
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         ..._instructionKeys.asMap().entries.map((entry) {
           final index = entry.key;
           final key = entry.value;
           return Padding(
-            padding: const EdgeInsets.only(bottom: 12.0),
+            padding: EdgeInsets.only(bottom: 12.0.h),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -108,11 +110,11 @@ class InstructionListEditorState extends State<InstructionListEditor> {
                             color: AppColors.contentColor.withValues(alpha: .5),
                           ),
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(12.r),
                         borderSide: const BorderSide(color: AppColors.borderColor),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(12.r),
                         borderSide: const BorderSide(color: AppColors.borderColor),
                       ),
                     ),
@@ -121,7 +123,7 @@ class InstructionListEditorState extends State<InstructionListEditor> {
                 ),
                 if (_instructionKeys.length > 1)
                   IconButton(
-                    icon: const Icon(Icons.remove_circle_outline, color: Colors.red),
+                    icon: Icon(Icons.remove_circle_outline, color: Colors.red),
                     onPressed: () => removeInstruction(key),
                   ),
               ],

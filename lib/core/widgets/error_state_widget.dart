@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
 import 'package:foodie_hup/core/widgets/app_button.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class ErrorStateWidget extends StatelessWidget {
   final String errorMessage;
@@ -16,16 +18,16 @@ class ErrorStateWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: EdgeInsets.all(20.0.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               Icons.error_outline,
-              size: 64,
+              size: 54.sp,
               color: Colors.redAccent,
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 12.h),
             Text(
               errorMessage,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -33,9 +35,9 @@ class ErrorStateWidget extends StatelessWidget {
                   ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 20.h),
             SizedBox(
-              width: 150,
+              width: 150.w,
               child: AppButton(
                 text: 'Retry',
                 onTap: onRetry,

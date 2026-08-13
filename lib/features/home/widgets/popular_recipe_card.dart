@@ -5,6 +5,8 @@ import 'package:foodie_hup/core/constants/app_colors.dart';
 import 'package:foodie_hup/features/cookbook/widgets/favorite_button.dart';
 import 'package:foodie_hup/features/recipes/ui/recipe_details_screen.dart';
 import 'package:foodie_hup/core/widgets/loading_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class PopularRecipeCard extends StatelessWidget {
   final MealModel meal;
@@ -23,11 +25,11 @@ class PopularRecipeCard extends StatelessWidget {
         );
       },
       child: Container(
-        margin: const EdgeInsets.only(bottom: 16.0),
-        padding: const EdgeInsets.all(12.0),
+        margin: EdgeInsets.only(bottom: 12.0.h),
+        padding: EdgeInsets.all(10.0.w),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(16.r),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.03),
@@ -41,32 +43,32 @@ class PopularRecipeCard extends StatelessWidget {
           children: [
             // Left Image
             ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(12.r),
               child: SizedBox(
-                width: 100,
-                height: 100,
+                width: 85.w,
+                height: 85.h,
                 child: (meal.strMealThumb?.isNotEmpty == true)
                     ? CachedNetworkImage(
                         imageUrl: meal.strMealThumb ?? '',
                         fit: BoxFit.cover,
                         placeholder: (context, url) => Container(
                           color: AppColors.borderColor.withValues(alpha: 0.3),
-                          child: const Center(
+                          child: Center(
                             child: LoadingWidget(),
                           ),
                         ),
                         errorWidget: (context, url, error) => Container(
                           color: AppColors.borderColor.withValues(alpha: 0.3),
-                          child: const Icon(Icons.broken_image, color: AppColors.contentColor),
+                          child: Icon(Icons.broken_image, color: AppColors.contentColor),
                         ),
                       )
                     : Container(
                         color: AppColors.borderColor.withValues(alpha: 0.3),
-                        child: const Icon(Icons.restaurant, color: AppColors.contentColor),
+                        child: Icon(Icons.restaurant, color: AppColors.contentColor),
                       ),
               ),
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: 12.w),
             
             // Right Content
             Expanded(
@@ -83,7 +85,7 @@ class PopularRecipeCard extends StatelessWidget {
                           fontFamily: 'Serif',
                         ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.h),
                   
                   // Description / Subtitle
                   // Using category and area as a descriptive text since full description isn't available
@@ -95,13 +97,13 @@ class PopularRecipeCard extends StatelessWidget {
                           color: AppColors.contentColor.withValues(alpha: 0.7),
                         ),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 8.h),
                   
                   // Metadata Row
                   Row(
                     children: [
-                      const Icon(Icons.restaurant_menu, size: 14, color: AppColors.contentColor),
-                      const SizedBox(width: 4),
+                      Icon(Icons.restaurant_menu, size: 14.sp, color: AppColors.contentColor),
+                      SizedBox(width: 4.w),
                       Text(
                         meal.strCategory ?? 'Meal',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -110,7 +112,7 @@ class PopularRecipeCard extends StatelessWidget {
                             ),
                       ),
                       const Spacer(),
-                      FavoriteButton(meal: meal, size: 20),
+                      FavoriteButton(meal: meal, size: 18.sp),
                     ],
                   ),
                 ],

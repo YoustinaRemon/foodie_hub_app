@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:foodie_hup/core/constants/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+
+
 
 class AppTheme {
   static final ThemeData appTheme = ThemeData(
@@ -9,10 +13,10 @@ class AppTheme {
 
     textTheme: TextTheme(
       //For big headlines
-      headlineLarge: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
+      headlineLarge: TextStyle(fontSize: 26.sp, fontWeight: FontWeight.w700),
 
       //For hints & buttons
-      titleMedium: TextStyle(fontSize: 16),
+      titleMedium: TextStyle(fontSize: 14.sp),
     ),
   );
 }

@@ -9,6 +9,7 @@ import 'package:foodie_hup/models/meal_model.dart';
 import 'package:foodie_hup/features/cookbook/widgets/favorite_button.dart';
 import 'package:foodie_hup/features/recipes/providers/recipe_details_provider.dart';
 import 'package:foodie_hup/features/recipes/models/unified_recipe_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RecipeDetailsScreen extends StatefulWidget {
   final dynamic sourceModel; // Either MealModel or CustomRecipeModel
@@ -43,7 +44,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
       body: Consumer<RecipeDetailsProvider>(
         builder: (context, provider, child) {
           if (provider.isLoading || provider.recipe == null) {
-            return const Center(child: LoadingWidget());
+            return Center(child: LoadingWidget());
           }
 
           if (provider.errorMessage != null) {
@@ -60,57 +61,61 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
           return CustomScrollView(
             slivers: [
               SliverAppBar(
-                expandedHeight: 300.0,
+                expandedHeight: 250.0.h,
                 pinned: true,
                 backgroundColor: AppColors.mainColor,
-                iconTheme: const IconThemeData(color: AppColors.secondMainColor),
+                iconTheme: IconThemeData(color: AppColors.secondMainColor),
                 flexibleSpace: FlexibleSpaceBar(
                   background: _buildHeroImage(recipe),
                 ),
                 actions: [
                   if (!recipe.isCustom && recipe.sourceModel is MealModel)
                     Padding(
-                      padding: const EdgeInsets.only(right: 16.0),
+                      padding: EdgeInsets.only(right: 16.0.w),
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.8),
                           shape: BoxShape.circle,
                         ),
-                        child: FavoriteButton(meal: recipe.sourceModel as MealModel),
+                        child: FavoriteButton(
+                          meal: recipe.sourceModel as MealModel,
+                        ),
                       ),
                     ),
                 ],
               ),
               SliverToBoxAdapter(
                 child: Container(
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: AppColors.mainColor,
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(32),
-                      topRight: Radius.circular(32),
+                      topLeft: Radius.circular(28.r),
+                      topRight: Radius.circular(28.r),
                     ),
                   ),
                   transform: Matrix4.translationValues(0.0, -24.0, 0.0),
                   child: Padding(
-                    padding: const EdgeInsets.all(24.0),
+                    padding: EdgeInsets.all(20.0.w),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _buildTitleSection(recipe, context),
-                        const SizedBox(height: 24),
+                        SizedBox(height: 20.h),
                         _buildMetadataSection(recipe, context),
-                        const SizedBox(height: 24),
-                        if (recipe.description != null && recipe.description!.isNotEmpty) ...[
+                        SizedBox(height: 20.h),
+                        if (recipe.description != null &&
+                            recipe.description!.isNotEmpty) ...[
                           _buildDescriptionSection(recipe, context),
-                          const SizedBox(height: 24),
+                          SizedBox(height: 20.h),
                         ],
                         _buildIngredientsSection(recipe, context),
-                        const SizedBox(height: 24),
+                        SizedBox(height: 20.h),
                         _buildInstructionsSection(recipe, context),
-                        const SizedBox(height: 24),
-                        if (recipe.youtubeUrl != null && recipe.youtubeUrl!.isNotEmpty)
+                        SizedBox(height: 20.h),
+                        if (recipe.youtubeUrl != null &&
+                            recipe.youtubeUrl!.isNotEmpty)
                           _buildYouTubeButton(recipe.youtubeUrl!, context),
-                        const SizedBox(height: 48),
+                        SizedBox(height: 32.h),
                       ],
                     ),
                   ),
@@ -130,9 +135,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
         fit: BoxFit.cover,
         placeholder: (context, url) => Container(
           color: AppColors.borderColor.withValues(alpha: 0.3),
-          child: const Center(
-            child: LoadingWidget(),
-          ),
+          child: Center(child: LoadingWidget()),
         ),
         errorWidget: (context, url, error) => _buildImagePlaceholder(),
       );
@@ -144,8 +147,8 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
   Widget _buildImagePlaceholder() {
     return Container(
       color: AppColors.borderColor.withValues(alpha: 0.3),
-      child: const Center(
-        child: Icon(Icons.fastfood, size: 80, color: AppColors.contentColor),
+      child: Center(
+        child: Icon(Icons.fastfood, size: 60.sp, color: AppColors.contentColor),
       ),
     );
   }
@@ -154,13 +157,17 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
     return Text(
       recipe.title,
       style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-            color: AppColors.secondMainColor,
-            fontWeight: FontWeight.bold,
-          ),
+        color: AppColors.secondMainColor,
+        fontWeight: FontWeight.bold,
+        fontSize: 24.sp,
+      ),
     );
   }
 
-  Widget _buildMetadataSection(UnifiedRecipeModel recipe, BuildContext context) {
+  Widget _buildMetadataSection(
+    UnifiedRecipeModel recipe,
+    BuildContext context,
+  ) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -168,16 +175,24 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
           if (recipe.category != null && recipe.category!.isNotEmpty)
             _buildMetaChip(Icons.category, recipe.category!, context),
           if (recipe.area != null && recipe.area!.isNotEmpty) ...[
-            const SizedBox(width: 12),
+            SizedBox(width: 12.w),
             _buildMetaChip(Icons.public, recipe.area!, context),
           ],
           if (recipe.preparationTime != null) ...[
-            const SizedBox(width: 12),
-            _buildMetaChip(Icons.timer, "${recipe.preparationTime} mins", context),
+            SizedBox(width: 12.w),
+            _buildMetaChip(
+              Icons.timer,
+              "${recipe.preparationTime} mins",
+              context,
+            ),
           ],
           if (recipe.servings != null) ...[
-            const SizedBox(width: 12),
-            _buildMetaChip(Icons.people, "${recipe.servings} servings", context),
+            SizedBox(width: 12.w),
+            _buildMetaChip(
+              Icons.people,
+              "${recipe.servings} servings",
+              context,
+            ),
           ],
         ],
       ),
@@ -186,52 +201,58 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
 
   Widget _buildMetaChip(IconData icon, String label, BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
       decoration: BoxDecoration(
         color: AppColors.secondMainColor.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
       ),
       child: Row(
         children: [
-          Icon(icon, size: 16, color: AppColors.secondMainColor),
-          const SizedBox(width: 6),
+          Icon(icon, size: 14.sp, color: AppColors.secondMainColor),
+          SizedBox(width: 6.w),
           Text(
             label,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppColors.secondMainColor,
-                  fontWeight: FontWeight.bold,
-                ),
+              color: AppColors.secondMainColor,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildDescriptionSection(UnifiedRecipeModel recipe, BuildContext context) {
+  Widget _buildDescriptionSection(
+    UnifiedRecipeModel recipe,
+    BuildContext context,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           "Description",
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: AppColors.secondMainColor,
-                fontWeight: FontWeight.bold,
-              ),
+            color: AppColors.secondMainColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         Text(
           recipe.description!,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: AppColors.contentColor,
-                height: 1.5,
-              ),
+            color: AppColors.contentColor,
+            height: 1.5.h,
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildIngredientsSection(UnifiedRecipeModel recipe, BuildContext context) {
-    if (recipe.ingredients.isEmpty) return const SizedBox.shrink();
+  Widget _buildIngredientsSection(
+    UnifiedRecipeModel recipe,
+    BuildContext context,
+  ) {
+    if (recipe.ingredients.isEmpty) return SizedBox.shrink();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -239,53 +260,54 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
         Text(
           "Ingredients",
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: AppColors.secondMainColor,
-                fontWeight: FontWeight.bold,
-              ),
+            color: AppColors.secondMainColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         Container(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(16.w),
           decoration: BoxDecoration(
             color: AppColors.borderColor.withValues(alpha: 0.2),
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: BorderRadius.circular(24.r),
           ),
           child: ListView.separated(
             padding: EdgeInsets.zero,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: recipe.ingredients.length,
-            separatorBuilder: (context, index) => const Divider(color: AppColors.borderColor),
+            separatorBuilder: (context, index) =>
+                const Divider(color: AppColors.borderColor),
             itemBuilder: (context, index) {
               final ingredient = recipe.ingredients[index];
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0),
+                padding: EdgeInsets.symmetric(vertical: 4.0.h),
                 child: Row(
                   children: [
                     Container(
-                      width: 8,
-                      height: 8,
-                      decoration: const BoxDecoration(
+                      width: 8.w,
+                      height: 8.h,
+                      decoration: BoxDecoration(
                         color: AppColors.secondMainColor,
                         shape: BoxShape.circle,
                       ),
                     ),
-                    const SizedBox(width: 12),
+                    SizedBox(width: 12.w),
                     Expanded(
                       child: Text(
                         ingredient.name,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: AppColors.secondMainColor,
-                              fontWeight: FontWeight.w500,
-                            ),
+                          color: AppColors.secondMainColor,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                     if (ingredient.measure.isNotEmpty)
                       Text(
                         ingredient.measure,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: AppColors.contentColor,
-                            ),
+                          color: AppColors.contentColor,
+                        ),
                       ),
                   ],
                 ),
@@ -297,8 +319,11 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
     );
   }
 
-  Widget _buildInstructionsSection(UnifiedRecipeModel recipe, BuildContext context) {
-    if (recipe.instructions.isEmpty) return const SizedBox.shrink();
+  Widget _buildInstructionsSection(
+    UnifiedRecipeModel recipe,
+    BuildContext context,
+  ) {
+    if (recipe.instructions.isEmpty) return SizedBox.shrink();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -306,48 +331,49 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
         Text(
           "Instructions",
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: AppColors.secondMainColor,
-                fontWeight: FontWeight.bold,
-              ),
+            color: AppColors.secondMainColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         ListView.separated(
           padding: EdgeInsets.zero,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: recipe.instructions.length,
-          separatorBuilder: (context, index) => const SizedBox(height: 16),
+          separatorBuilder: (context, index) => SizedBox(height: 12.h),
           itemBuilder: (context, index) {
             return Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: 32,
-                  height: 32,
+                  width: 28.w,
+                  height: 28.h,
                   decoration: BoxDecoration(
                     color: AppColors.secondMainColor,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
                   child: Center(
                     child: Text(
                       "${index + 1}",
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
+                        fontSize: 12.sp,
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: 12.w),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 4.0),
+                    padding: EdgeInsets.only(top: 4.0.h),
                     child: Text(
                       recipe.instructions[index],
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: AppColors.contentColor,
-                            height: 1.5,
-                          ),
+                        color: AppColors.contentColor,
+                        height: 1.5.h,
+                      ),
                     ),
                   ),
                 ),
@@ -363,17 +389,20 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
     return Center(
       child: OutlinedButton.icon(
         onPressed: () => _launchYouTubeUrl(url),
-        icon: const Icon(Icons.play_circle_fill, color: Colors.red),
-        label: const Text(
+        icon: Icon(Icons.play_circle_fill, color: Colors.red),
+        label: Text(
           "Watch on YouTube",
-          style: TextStyle(color: AppColors.secondMainColor, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: AppColors.secondMainColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         style: OutlinedButton.styleFrom(
           side: const BorderSide(color: AppColors.borderColor),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
         ),
       ),
     );

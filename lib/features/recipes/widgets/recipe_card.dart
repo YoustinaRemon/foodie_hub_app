@@ -5,6 +5,8 @@ import 'package:foodie_hup/models/meal_model.dart';
 import 'package:foodie_hup/features/cookbook/widgets/favorite_button.dart';
 import 'package:foodie_hup/features/recipes/ui/recipe_details_screen.dart';
 import 'package:foodie_hup/core/widgets/loading_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class RecipeCard extends StatelessWidget {
   final MealModel meal;
@@ -18,7 +20,7 @@ class RecipeCard extends StatelessWidget {
       shadowColor: AppColors.mainColor,
       color: Colors.white,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(20.r),
       ),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
@@ -43,22 +45,22 @@ class RecipeCard extends StatelessWidget {
                           fit: BoxFit.cover,
                           placeholder: (context, url) => Container(
                             color: AppColors.borderColor.withValues(alpha: 0.3),
-                            child: const Center(
+                            child: Center(
                               child: LoadingWidget(),
                             ),
                           ),
                           errorWidget: (context, url, error) => Container(
                             color: AppColors.borderColor.withValues(alpha: 0.3),
-                            child: const Icon(Icons.broken_image, color: AppColors.contentColor),
+                            child: Icon(Icons.broken_image, color: AppColors.contentColor),
                           ),
                         )
                       : Container(
                           color: AppColors.borderColor.withValues(alpha: 0.3),
-                          child: const Icon(Icons.fastfood, color: AppColors.contentColor),
+                          child: Icon(Icons.fastfood, color: AppColors.contentColor),
                         ),
                   Positioned(
-                    top: 8,
-                    right: 8,
+                    top: 8.h,
+                    right: 8.w,
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.white.withValues(alpha: 0.8),
@@ -71,7 +73,7 @@ class RecipeCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: EdgeInsets.all(10.0.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -80,16 +82,18 @@ class RecipeCard extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: AppColors.secondMainColor,
+                          fontSize: 15.sp,
                         ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.h),
                   if (meal.strCategory != null)
                     Text(
                       meal.strCategory!,
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                             color: AppColors.contentColor,
+                            fontSize: 12.sp,
                           ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

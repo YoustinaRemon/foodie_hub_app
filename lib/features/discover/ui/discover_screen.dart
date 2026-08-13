@@ -6,6 +6,7 @@ import 'package:foodie_hup/features/discover/providers/discover_provider.dart';
 import 'package:foodie_hup/features/discover/widgets/category_filter.dart';
 import 'package:foodie_hup/features/discover/widgets/dietary_filter.dart';
 import 'package:foodie_hup/features/discover/widgets/recipe_grid.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DiscoverScreen extends StatelessWidget {
   const DiscoverScreen({super.key});
@@ -15,20 +16,20 @@ class DiscoverScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: EdgeInsets.symmetric(horizontal: 20.0.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 24),
+              SizedBox(height: 16.h),
               Text(
                 "Discover",
                 style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                      color: AppColors.secondMainColor,
-                      fontSize: 32,
-                    ),
+                  color: AppColors.secondMainColor,
+                  fontSize: 26.sp,
+                ),
               ),
-              const SizedBox(height: 16),
-              
+              SizedBox(height: 12.h),
+
               // Custom Search Bar (submitting triggers provider search)
               CustomSearchBar(
                 text: "Search for a specific recipe...",
@@ -36,26 +37,25 @@ class DiscoverScreen extends StatelessWidget {
                   context.read<DiscoverProvider>().searchMeals(query);
                 },
               ),
-              const SizedBox(height: 16),
-              
+              SizedBox(height: 12.h),
+
               const DietaryFilter(),
-              const SizedBox(height: 16),
-              
+              SizedBox(height: 12.h),
+
               Text(
                 "Categories",
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      color: AppColors.secondMainColor,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  color: AppColors.secondMainColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.sp,
+                ),
               ),
-              const SizedBox(height: 8),
-              
+              SizedBox(height: 8.h),
+
               const CategoryFilter(),
-              const SizedBox(height: 16),
-              
-              const Expanded(
-                child: RecipeGrid(),
-              ),
+              SizedBox(height: 12.h),
+
+              Expanded(child: RecipeGrid()),
             ],
           ),
         ),

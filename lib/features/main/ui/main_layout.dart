@@ -4,6 +4,7 @@ import 'package:foodie_hup/features/home/ui/home_screen.dart';
 import 'package:foodie_hup/features/discover/ui/discover_screen.dart';
 import 'package:foodie_hup/features/cookbook/ui/cookbook_screen.dart';
 import 'package:foodie_hup/features/profile/ui/profile_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -36,7 +37,10 @@ class _MainLayoutState extends State<MainLayout> {
         selectedItemColor: AppColors.secondMainColor,
         unselectedItemColor: AppColors.contentColor.withValues(alpha: 0.5),
         type: BottomNavigationBarType.fixed,
-        items: const [
+        iconSize: 24.sp,
+        selectedFontSize: 12.sp,
+        unselectedFontSize: 12.sp,
+        items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_filled),
             label: 'Home',
